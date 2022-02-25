@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} Mes articles{% endblock %}
+
+{% block contenu %}
+    {% if form.etat is defined %}
+        {% if form.etat == true %}
+            <h1 class="h3 mb-3 font-weight-normal">Suppression réussie</h1>
+        {% else %}
+            <h1 class="alert alert-danger" role="alert">Problème d'insertion</h1>
+        {% endif %}
+    {% endif %}
+
+    {% if session.login is defined %}
+        {% for article in listeMesArticles %}
+        <div class="container col-9">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{article.titre}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted"><a href="index.php?page=profil&profil_id={{article.idAuteur}}">{{article.auteur}}</a>, le {{article.dateArticle}} à {{article.heure}}</h6>
+                    <p class="card-text">{{article.contenu | nl2br}}</p>
+                    {% if article.idAuteur == session.id %}
+                        <a class="btn btn-primary" href="index.php?page=modif_article&id={{article.id}}">Modifier</a>
+                        <a class="btn btn-danger" href="index.php?page=mes_articles&id={{article.id}}">Supprimer</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <h1>Vous n'avez pas accès à cette page.<h1>
+        <h1>Veuillez créer un compte ou vous connecter.</h1>
+    {% endif %}
+{% endblock %}

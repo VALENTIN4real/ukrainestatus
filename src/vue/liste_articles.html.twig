@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} Liste articles{% endblock %}
+
+{% block contenu %}
+
+        {% for article in listeArticles %}
+            <div class="container col-9">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="index.php?page=un_article&id={{article.id}}">{{article.titre}}</a></h5>
+                        <h6 class="card-subtitle mb-2 text-muted"><a href="index.php?page=profil&profil_id={{article.idAuteur}}">{{article.auteur}}</a>, le {{article.dateArticle}} à {{article.heure}}</h6>
+                        <p class="card-text">{{article.contenu | nl2br}}</p>
+                        {% if (article.idAuteur == session.id or session.role == 2) %}
+                            <a class="btn btn-primary" href="index.php?page=modif_article&id={{article.id}}">Modifier</a>
+                            <a class="btn btn-danger" href="index.php?page=liste_articles&id={{article.id}}">Supprimer</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+{% endblock %}

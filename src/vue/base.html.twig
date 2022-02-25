@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-MHLVJXVBGP"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-MHLVJXVBGP');
+        </script>
+        
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
+        <title>{% block title %}Ukraine Status - {% endblock %}</title>
+    </head>
+    
+    <body>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="index.php?page=accueil">Ukraine Status</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        {% if session.login is defined %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.php?page=nouvel_article">Write an article</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php?page=liste_articles">Articles</a>
+                        </li>
+                        {% if session.login is defined %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.php?page=mes_articles">My articles</a>
+                            </li>
+                        {% endif %}
+                        {% if session.role == 2 %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.php?page=utilisateurs">Users</a>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+
+                    {% if session.login is defined %}
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-toggle btn btn-primary" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ session.prenom }} {{ session.nom }}</a>
+                                    <div class="dropdown-menu dropdown-menu-right mt-4" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="index.php?page=profil&profil_id={{session.id}}">Mon profil</a>
+                                    <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="index.php?page=deconnexion">Me déconnecter</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    {% else %}
+
+                    {% endif %}
+                    </form>
+                </div>
+            </nav>
+
+            <div class="container col-8 alert-danger text-center">
+                <h1 class="alert-danger">President Zelensky decrees general mobilization</h1>
+            </div>
+        {% block contenu %}
+
+        {% endblock %}  
+        
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        
+    </body>
+</html> 

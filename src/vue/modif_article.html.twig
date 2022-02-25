@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} Modifier un article{% endblock %}
+
+{% block contenu %}
+{% if session.role == 2 %}
+    <div class="col justify-content-center align-items-center">
+        <h1>Modifier un article</h1>
+        {% if form.article is defined %}
+            {% if form.article != null %}
+                <form action="index.php?page=modif_article" method="post" enctype="application/x-www-form-urlencoded">
+                                <div class="form-group">
+                                    <label for="titreArticle">Titre</label>
+                                    <input type="form-control" class="form-control" id="titreArticle" name="titreArticle" value="{{form.article.titre}}" maxlength="60" placeholder="(60 caractères max.)" />
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="contenuArticle">Contenu de l'article</label>
+                                    <textarea class="form-control" id="contenuArticle" name="contenuArticle" rows="3">{{form.article.contenu}}</textarea>
+                                </div>
+                                <button name="btModifierArticle" id="btModifierArticle" type="submit" class="btn btn-primary">Valider</button>
+
+                                <input type="hidden" name="id" value="{{form.article.id}}"/>
+                </form>
+            {% else %}
+                <h2 class="alert alert-success" role="alert">{{form.message}}</h2>
+                <a href="index.php?page=utilisateurs">Retourner sur la liste des utilisateurs</a>
+            {% endif %}
+        {% else %}
+            <h2 class="alert alert-success" role="alert">{{form.message}}</h2>
+            <a href="index.php?page=utilisateurs">Retourner sur la liste des utilisateurs</a>
+        {% endif %}
+{% endif %}
+    </div>
+{% endblock %}

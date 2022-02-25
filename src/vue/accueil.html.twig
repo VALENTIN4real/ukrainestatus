@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }} Accueil {% endblock %}
+
+{% block contenu %}
+
+    {% if session.login is defined %}
+
+    {% else %} <!-- Page d'accueil non enregistré / connecté -->
+        <div class="row h-75 justify-content-center align-items-center">
+            <h1>Bienvenue sur Sierra </h1>
+        </div>
+
+        <div class="row h-75 justify-content-center align-items-center">
+            <h2>Commençons.</h2>
+        </div>
+
+        <div class="row h-75 justify-content-center align-items-center">
+            <a href="index.php?page=inscription"><button type="button" class="btn btn-primary btn-lg">S'inscrire</button></a>
+            <a href="index.php?page=connexion"><button type="button" class="btn btn-secondary btn-lg">Se connecter</button></a>
+        </div>
+
+        <div class="row h-75 justify-content-center align-items-center">
+            <p>Si vous avez un compte, vous pouvez vous connecter.</p>
+        </div>
+
+        <div class="row h-75 justify-content-center align-items-center">
+            <p>Sinon, l'inscription ne prendra qu'une minute.</p>
+        </div>
+    {% endif %}
+{% endblock %}

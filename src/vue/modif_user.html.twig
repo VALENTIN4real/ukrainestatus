@@ -1,0 +1,68 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }} Accueil {% endblock %}
+
+{% block contenu %}
+    <h1>Modifier un utilisateur</h1>
+
+    {% if form.utilisateur is defined %}
+        {% if form.utilisateur != null %}
+            <div class="col justify-content-center align-items-center">
+                <form action="index.php?page=modif_user" method="post" enctype="application/x-www-form-urlencoded">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="nom">Nom</label>
+                            <input name="nom" id="nom" type="text" class="form-control" value="{{form.utilisateur.nom}}" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="prenom">Prénom</label>
+                            <input name="prenom" id="prenom" type="text" class="form-control" value="{{form.utilisateur.prenom}}" required>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="email">Adresse mail</label>
+                            <input name="email" id="email" type="email" class="form-control" value="{{form.utilisateur.email}}" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="password">Mot de passe</label>
+                            <input name="password" id="password" type="password" class="form-control">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="password2">Confirmation mot de passe</label>
+                            <input name="password2" id="password2" type="password" class="form-control">
+                        </div>
+                        {% if session.role == 2 %}
+                                <div class="form-group col-md-6">
+                                    <label for="role">Rôle</label>
+                                    <select name="role" id="role" class="form-control" required>
+                                        {% if form.utilisateur.idRole == 1 %}
+                                            <option value="1" selected>Utilisateur</option>
+                                            <option value="2">Administrateur</option>
+                                        {% endif %}
+                                        {% if form.utilisateur.idRole == 2 %}
+                                            <option value="1">Utilisateur</option>
+                                            <option value="2" selected>Administrateur</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                        {% else %}
+                            <div class="form-group col-md-6">
+                                <input name="role" id="role" type="hidden" value="1" class="form-control" required>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <input type="hidden" name="id" value="{{form.utilisateur.id}}"/>
+
+                    <button name="btModifierUtilisateur" type="submit" class="btn btn-primary">Valider</button>
+                </form>
+            {% else %}
+                <h2 class="alert alert-danger" role="alert">{{form.message}}</h2>
+                <a href="index.php?page=utilisateurs">Retourner sur la liste des utilisateurs</a>
+            {% endif %}
+
+            {% else %}
+                <h2 class="alert alert-danger" role="alert">{{form.message}}</h2>
+                <a href="index.php?page=utilisateurs">Retourner sur la liste des utilisateurs</a>
+            {% endif %}
+{% endblock %}

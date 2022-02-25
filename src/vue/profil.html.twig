@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Espace membre - {{profil.prenom}} {{profil.nom}}{% endblock %}
+
+{% block contenu %}
+<div class="container col-10">
+    <div class="col justify-content-center align-items-center">
+        <h1>Profil de {{profil.prenom}} {{profil.nom}}</h1>
+        <p>Adresse email : {{profil.email}}</p>
+        <p>Date d'inscription : {{profil.dateInscription}}</p>
+        {% if session.id == profil.id  %}
+            <a href="index.php?page=modif_user&id={{profil.id}}" class="btn btn-primary">Modifier mon profil</a>
+        {% elseif session.role == 2 %}
+            <a href="index.php?page=modif_user&id={{profil.id}}" class="btn btn-primary">Modifier le profil</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

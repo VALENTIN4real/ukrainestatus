@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{unArticle.titre}} - {{ parent() }}{% endblock %}
+
+{% block contenu %}
+
+            <div class="container col-9">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{unArticle.titre}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted"><a href="index.php?page=profil&profil_id={{unArticle.idAuteur}}">{{unArticle.auteur}}</a>, le {{unArticle.dateArticle}} à {{unArticle.heure}}</h6>
+                        <p class="card-text">{{unArticle.contenu | nl2br}}</p>
+
+                    </div>
+                </div>
+            </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} Utilisateurs en ligne{% endblock %}
+
+{% block contenu %}
+    {% for utilisateurs in onlineUserList %}
+        <ul class="list-group">
+            <li class="list-group-item">{{utilisateurs.prenom}}</li>
+        </ul>
+    {% endfor %}
+{% endblock %}

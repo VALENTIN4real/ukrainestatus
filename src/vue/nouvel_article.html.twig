@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} Nouvel article{% endblock %}
+
+{% block contenu %}
+    {% if session.login is defined %}
+        {% if formArticle.valide is defined %}
+            {% if formArticle.valide == true %}
+                <p>Article envoyé</p>
+            {% else %}
+                <h1>Erreur lors de l'envoi</h1>
+                <h1>{{formArticle.message}}</h1>
+            {% endif %}
+        {% else %}
+        <div class="container col-9">
+            <div class="col justify-content-center align-items-center">
+                <h1>Ecrire un nouvel article</h1>
+
+                <form action="index.php?page=nouvel_article" method="post" enctype="application/x-www-form-urlencoded">
+                    <div class="form-group">
+                        <label for="titreArticle">Titre</label>
+                        <input type="form-control" class="form-control" id="titreArticle" name="titreArticle" maxlength="60" placeholder="(60 caractères max.)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contenuArticle">Contenu de l'article</label>
+                        <textarea class="form-control" id="contenuArticle" name="contenuArticle" rows="3" required></textarea>
+                    </div>
+                    <button name="btArticle" id="btArticle" type="submit" class="btn btn-primary">Valider</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    {% else %}
+        <h1>Vous n'avez pas accès à cette page.<h1>
+        <h1>Veuillez créer un compte ou vous connecter.</h1>
+    {% endif %}
+{% endblock %}

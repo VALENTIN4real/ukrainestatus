@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} Gestion des utilisateurs{% endblock %}
+
+{% block contenu %}
+    {% if session.role == 2 %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr style="text-align:center;">
+                        <th scope="col">ID</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Rôle</th>
+                        <th scope="col">Date d'inscription</th>
+                        <th scope="col">Page de profil</th>
+                        <th scope="col">Administration</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for utilisateurs in userList %}
+                        <tr style="text-align:center;">
+                            <td>{{utilisateurs.id}}</td>
+                            <td>{{utilisateurs.nom}}</td>
+                            <td>{{utilisateurs.prenom}}</td>
+                            <td><a href="mailto:{{utilisateurs.email}}">{{utilisateurs.email}}</a></td>
+                            <td>{{utilisateurs.idRole}}</td>
+                            <td>{{utilisateurs.dateInscription}}</td>
+                            <td><a href="index.php?page=profil&profil_id={{utilisateurs.id}}">{{utilisateurs.prenom}}</a>
+                            <td><a href="index.php?page=modif_user&id={{utilisateurs.id}}"><span class="material-icons">edit</span></a> <a href="index.php?page=utilisateurs&id={{utilisateurs.id}}"><span class="material-icons">delete</span></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <h1>Vous n'avez pas l'autorisation de naviguer sur cette page. Connectez-vous.</h1>
+    {% endif %}
+{% endblock %}
