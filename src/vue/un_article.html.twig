@@ -4,13 +4,45 @@
 
 {% block contenu %}
 
-            <div class="container col-9">
-                <div class="card">
+            <div class="container-fluid col-12 col-sm-9">
+                <div class="card rounded">
                     <div class="card-body">
-                        <h5 class="card-title">{{unArticle.titre}}</h5>
+                        <h5 class="card-title"><a href="index.php?page=un_article&id={{unArticle.id}}">{{unArticle.titre}}</a></h5>
                         <h6 class="card-subtitle mb-2 text-muted"><a href="index.php?page=profil&profil_id={{unArticle.idAuteur}}">{{unArticle.auteur}}</a>, le {{unArticle.dateArticle}} à {{unArticle.heure}}</h6>
                         <p class="card-text">{{unArticle.contenu | nl2br}}</p>
+                        <p class="card-text"><a class="text-info" href="{{unArticle.lien}}" target="_blank">{{unArticle.lien}}</a></p>
+                        <img class="rounded mx-auto d-block" src="{{unArticle.lienImage}}" width="50%"/>
+                    </div>
+                </div>
+                
+                <div class="container float-left col-12 col-sm-7">
+                {% for commentaire in listeCommentaires %}
+                    <div class="card mt-4 text-justify float-left col-sm-12 rounded mx-auto d-block">
+                        <div class="second py-2 px-2"> <span class="">{{ commentaire.commentaire}}</span>
+                            <div class="d-flex justify-content-between py-1 pt-2">
+                                <div><span class="font-weight-bold text-primary">{{ commentaire.pseudo }}</span></div>
+                                <div><i><span class="">{{ commentaire.dateComplete }}</span></i></div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div><br/>
 
+                <div class="card col-12 col-sm-5 float-right p-3 mt-3 mt-sm-0 rounded">
+                        <h1>Comment below</h1>
+
+                        <form action="index.php?page=un_article&id={{unArticle.id}}" method="post" enctype="application/x-www-form-urlencoded">
+                            <div class="form-group">
+                                <label for="pseudo">Nickname</label>
+                                <input type="form-control" class="form-control" id="pseudo" name="pseudo" maxlength="60" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="commentaire">Comment</label>
+                                <textarea class="form-control" id="commentaire" name="commentaire" rows="3" required></textarea>
+                            </div>
+                            <button name="btCommentaire" id="btCommentaire" type="submit" class="btn btn-primary">Send</button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -13,12 +13,14 @@
 
     {% if session.login is defined %}
         {% for article in listeMesArticles %}
-        <div class="container col-9">
+        <div class="container col-12 col-sm-9">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">{{article.titre}}</h5>
+                    <h5 class="card-title"><a href="index.php?page=un_article&id={{article.id}}">{{article.titre}}</a></h5>
                     <h6 class="card-subtitle mb-2 text-muted"><a href="index.php?page=profil&profil_id={{article.idAuteur}}">{{article.auteur}}</a>, le {{article.dateArticle}} à {{article.heure}}</h6>
                     <p class="card-text">{{article.contenu | nl2br}}</p>
+                    <p class="card-text"><a class="text-info" href="{{article.lien}}" target="_blank">{{article.lien}}</a></p>
+                    <img class="rounded mx-auto d-block" src="{{article.lienImage}}" width="50%"/>
                     {% if article.idAuteur == session.id %}
                         <a class="btn btn-primary" href="index.php?page=modif_article&id={{article.id}}">Modifier</a>
                         <a class="btn btn-danger" href="index.php?page=mes_articles&id={{article.id}}">Supprimer</a>

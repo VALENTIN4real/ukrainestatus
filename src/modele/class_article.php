@@ -10,18 +10,18 @@
 
         public function __construct($db){
             $this->db = $db;
-            $this->insertArticle = $this->db->prepare("INSERT INTO article(idAuteur, auteur, titre, contenu, dateArticle, heure, dateComplete) VALUES(:idAuteur, :auteur, :titreArticle, :contenuArticle, NOW(), NOW(), NOW())");
-            $this->selectArticle = $this->db->prepare("SELECT id, auteur, idAuteur, titre, contenu, DATE_FORMAT(dateArticle, '%d/%m/%Y') AS dateArticle, heure FROM article ORDER BY dateComplete DESC");
-            $this->selectUnArticle = $this->db->prepare("SELECT id, auteur, idAuteur, titre, contenu, DATE_FORMAT(dateArticle, '%d/%m/%Y') AS dateArticle, heure FROM article WHERE id=:id");
-            $this->selectMesArticles =$this->db->prepare("SELECT id, auteur, idAuteur, titre, contenu, DATE_FORMAT(dateArticle, '%d/%m/%Y') AS dateArticle, heure FROM article WHERE idAuteur = $_SESSION[id] ORDER BY dateComplete DESC");
-            $this->selectById = $this->db->prepare("SELECT id, titre, contenu FROM article WHERE id=:id");
-            $this->update = $db->prepare("UPDATE article SET titre=:titre, contenu=:contenu WHERE id=:id");
+            $this->insertArticle = $this->db->prepare("INSERT INTO article(idAuteur, auteur, titre, contenu, lien, lienImage, dateArticle, heure, dateComplete) VALUES(:idAuteur, :auteur, :titreArticle, :contenuArticle, :lien, :lienImage, NOW(), NOW(), NOW())");
+            $this->selectArticle = $this->db->prepare("SELECT id, auteur, idAuteur, titre, contenu, lien, lienImage, DATE_FORMAT(dateArticle, '%d/%m/%Y') AS dateArticle, heure FROM article ORDER BY dateComplete DESC");
+            $this->selectUnArticle = $this->db->prepare("SELECT id, auteur, idAuteur, titre, contenu, lien, lienImage, DATE_FORMAT(dateArticle, '%d/%m/%Y') AS dateArticle, heure FROM article WHERE id=:id");
+            $this->selectMesArticles =$this->db->prepare("SELECT id, auteur, idAuteur, titre, contenu, lien, lienImage, DATE_FORMAT(dateArticle, '%d/%m/%Y') AS dateArticle, heure FROM article WHERE idAuteur = $_SESSION[id] ORDER BY dateComplete DESC");
+            $this->selectById = $this->db->prepare("SELECT id, titre, contenu, lien, lienImage FROM article WHERE id=:id");
+            $this->update = $db->prepare("UPDATE article SET titre=:titre, contenu=:contenu, lien=:lien, lienImage=:lienImage WHERE id=:id");
             $this->delete = $db->prepare("DELETE FROM article WHERE id=:id");
         }
 
-        public function insertArticle($idAuteur, $auteur, $titreArticle, $contenuArticle){
+        public function insertArticle($idAuteur, $auteur, $titreArticle, $contenuArticle, $lienArticle, $lienImage){
             $r = true;
-            $this->insertArticle->execute(array(':idAuteur'=>$idAuteur, ':auteur'=>$auteur, ':titreArticle'=>$titreArticle, ':contenuArticle'=>$contenuArticle));
+            $this->insertArticle->execute(array(':idAuteur'=>$idAuteur, ':auteur'=>$auteur, ':titreArticle'=>$titreArticle, ':contenuArticle'=>$contenuArticle, ':lien'=>$lienArticle, ':lienImage'=>$lienImage));
             
             if ($this->insertArticle->errorCode()!=0){
                 print_r($this->insertArticle->errorInfo());
@@ -69,9 +69,9 @@
             return $this->selectById->fetch();
         }
 
-        public function update($titreArticle, $contenuArticle, $id){
+        public function update($titreArticle, $contenuArticle, $lienArticle, $lienImage, $id){
             $r = true;
-            $this->update->execute(array(':titre'=>$titreArticle, ':contenu'=>$contenuArticle, ':id'=>$id));
+            $this->update->execute(array(':titre'=>$titreArticle, ':contenu'=>$contenuArticle, ':lien'=>$lienArticle, ':lienImage'=>$lienImage, ':id'=>$id));
 
             if ($this->update->errorCode()!=0){
                 print_r($this->update->errorInfo());
